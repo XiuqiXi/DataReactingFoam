@@ -2,12 +2,12 @@
 
 Info<< "Creating reaction model\n" << endl;
 
-autoPtr<combustionModels::rhoCombustionModel> reaction
+autoPtr<combustionModels::psiCombustionModel> reaction
 (
-    combustionModels::rhoCombustionModel::New(mesh)
+    combustionModels::psiCombustionModel::New(mesh)
 );
 
-rhoReactionThermo& thermo = reaction->thermo();
+psiReactionThermo& thermo = reaction->thermo();
 thermo.validate(args.executable(), "h", "e");
 
 basicMultiComponentMixture& composition = thermo.composition();

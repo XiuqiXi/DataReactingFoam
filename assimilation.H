@@ -141,6 +141,7 @@
 
 		//update the temperature
 		//Define the temperature boundary condition object
+		/*
 		fvPatchScalarField& T_patch = refCast<fvPatchScalarField>(T.boundaryFieldRef()[patchID]);
 
 		//Cast calculated temperature to each cell on the patch
@@ -167,7 +168,7 @@
 
 		}
 		Info<<"The temperature changes"<<endl;
-
+		*/
 
 		//update the oxygen
 		//Define the oxygen boundary condition object
