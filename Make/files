@@ -1,0 +1,3 @@
+DataReactingFoam.C
+
+EXE = $(FOAM_APPBIN)/DataReactingFoam
