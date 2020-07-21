@@ -28,9 +28,17 @@
 			//Get the coordinate
 			const scalar x = mesh.boundaryMesh()[patchID].faceCentres()[faceI].x();
 			const scalar y = mesh.boundaryMesh()[patchID].faceCentres()[faceI].y();
+			Info<<hfp[faceI]<<endl;
+		}
+
+		forAll(mesh.boundaryMesh()[patchID].faceCentres(), faceI)
+		{
+			//Get the coordinate
+			const scalar x = mesh.boundaryMesh()[patchID].faceCentres()[faceI].x();
+			const scalar y = mesh.boundaryMesh()[patchID].faceCentres()[faceI].y();
 			//Find the location of preheat ergion
 			if(y>pyrolysisUpperPosition){
-				if ((hfp[faceI])<8000){
+				if ((hfp[faceI])<10000){
 					Info<<"The location of preheat region is "<<y<<endl;
 					preheatRegionUpperPosition = y;
 					preheatLength = y-pyrolysisUpperPosition;
@@ -46,7 +54,7 @@
 
 		//construct condensed condensed region
 		condensedRegion solidPanel(gMax(hfp), timeInterval, preheatLength);
-		solidPanel.pyrolysisLengthIncrease_thermally_thick();
+		solidPanel.pyrolysisLengthIncrease_thermally_thin();
 		pyrolysisUpperPosition = pyrolysisUpperPosition+solidPanel.pyrolysisLengthIncrease_;
 		solidPanel.pyrolysisBurnout();
 		pyrolysisLowerPosition = pyrolysisLowerPosition+solidPanel.pysolysisBurnOutIncrease_;
