@@ -38,7 +38,7 @@
 			const scalar y = mesh.boundaryMesh()[patchID].faceCentres()[faceI].y();
 			//Find the location of preheat ergion
 			if(y>pyrolysisUpperPosition){
-				if ((hfp[faceI])<10000){
+				if ((hfp[faceI])<16000){
 					Info<<"The location of preheat region is "<<y<<endl;
 					preheatRegionUpperPosition = y;
 					preheatLength = y-pyrolysisUpperPosition;
@@ -55,9 +55,16 @@
 		//construct condensed condensed region
 		condensedRegion solidPanel(gMax(hfp), timeInterval, preheatLength);
 		solidPanel.pyrolysisLengthIncrease_thermally_thin();
-		pyrolysisUpperPosition = pyrolysisUpperPosition+solidPanel.pyrolysisLengthIncrease_;
+		if (mesh.time().value()>0.5)
+		{
+			pyrolysisUpperPosition = pyrolysisUpperPosition+solidPanel.pyrolysisLengthIncrease_;
+		}
 		solidPanel.pyrolysisBurnout();
-		pyrolysisLowerPosition = pyrolysisLowerPosition+solidPanel.pysolysisBurnOutIncrease_;
+		if (mesh.time().value()>3)
+		{
+			pyrolysisLowerPosition = pyrolysisLowerPosition+solidPanel.pysolysisBurnOutIncrease_;
+		}
+
 		//pyrolysisUpperPosition = 0.13;
 
 		std::ofstream file_pyrolysisUpperPosition;
@@ -205,12 +212,6 @@
 			}
 		}
 		Info<<"The oxygen changes"<<endl;
-
-
-
-		Info<<"B number is "<<analyticalRegion::B<<endl;
-
-
 
 
 		Info<<"The index is "<<	assimilationTimeIndex <<endl;
