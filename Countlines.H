@@ -23,5 +23,5 @@ int Countlines(char *filename)
 scalar analyticalRegion::B = 0.1;
 scalar condensedRegion::C = 1;
 scalar analyticalRegion::U_infty = 0.2;
-scalar condensedRegion::burnOutRate = 0.00361;
-//scalar condensedRegion::burnOutRate = 0;
+//scalar condensedRegion::burnOutRate = 0.00361;
+scalar condensedRegion::burnOutRate = 0;

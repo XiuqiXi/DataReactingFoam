@@ -13,6 +13,6 @@ void condensedRegion::pyrolysisLengthIncrease_thermally_thin(){
 
 //calculate the burn out composition
 void condensedRegion::pyrolysisBurnout(){
-  //pysolysisBurnOutIncrease_ = timeInterval_*burnOutRate;
-  pysolysisBurnOutIncrease_ = timeInterval_*preheatLength_/(C*rho*c*d*(T_ignition-T_infty)/heatFlux_);
+  pysolysisBurnOutIncrease_ = timeInterval_*burnOutRate;
+  //pysolysisBurnOutIncrease_ = timeInterval_*preheatLength_/(C*rho*c*d*(T_ignition-T_infty)/heatFlux_);
 }
