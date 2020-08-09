@@ -28,7 +28,7 @@
 			//Get the coordinate
 			const scalar x = mesh.boundaryMesh()[patchID].faceCentres()[faceI].x();
 			const scalar y = mesh.boundaryMesh()[patchID].faceCentres()[faceI].y();
-			Info<<hfp[faceI]<<endl;
+			//Info<<hfp[faceI]<<endl;
 		}
 
 		forAll(mesh.boundaryMesh()[patchID].faceCentres(), faceI)
@@ -110,7 +110,10 @@
 				analyticalRegion nearWallRegion(x_original, y_original);
 				//Get the fuel
 				nearWallRegion.calculateFuel();
-				scalar interfaceFuel = nearWallRegion.interfaceFuel_;
+				scalar meanInterFuel = nearWallRegion.interfaceFuel_;
+				Random perturbation(rand());
+				scalar interfaceFuel = meanInterFuel + 0.5*meanInterFuel*perturbation.GaussNormal();
+				if(interfaceFuel<0){interfaceFuel = 0;}
 				//Set fuel
 				fuel_patch[faceI] = scalar( (y<pyrolysisUpperPosition)&&(y>pyrolysisLowerPosition) ? interfaceFuel : 0 );
 			}

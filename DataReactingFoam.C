@@ -46,6 +46,7 @@ Description
 #include "analyticalRegion.H"
 #include "condensedRegion.H"
 #include "Countlines.H"
+#include "Random.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
