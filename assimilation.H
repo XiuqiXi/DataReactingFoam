@@ -111,8 +111,9 @@
 				//Get the fuel
 				nearWallRegion.calculateFuel();
 				scalar meanInterFuel = nearWallRegion.interfaceFuel_;
+				meanInterFuel = meanInterFuel + 0.1*meanInterFuel*Foam::sin(mesh.time().value());
 				Random perturbation(rand());
-				scalar interfaceFuel = meanInterFuel + 0.5*meanInterFuel*perturbation.GaussNormal();
+				scalar interfaceFuel = meanInterFuel + 0.1*meanInterFuel*perturbation.GaussNormal();
 				if(interfaceFuel<0){interfaceFuel = 0;}
 				//Set fuel
 				fuel_patch[faceI] = scalar( (y<pyrolysisUpperPosition)&&(y>pyrolysisLowerPosition) ? interfaceFuel : 0 );
@@ -144,10 +145,18 @@
 				//Info<<"value is "<<nearWallRegion.testValue<<endl;
 				//Get the velocity
 				nearWallRegion.calculateStreamwiseVelocity();
-				scalar streamwiseVelocity = nearWallRegion.streamwiseVelocity_;
+				scalar meanstreamwiseVelocity = nearWallRegion.streamwiseVelocity_;
+				meanstreamwiseVelocity = meanstreamwiseVelocity + 0.1*meanstreamwiseVelocity*Foam::sin(mesh.time().value());
+				Random perturbation_2(rand());
+				scalar streamwiseVelocity = meanstreamwiseVelocity + 0.1*meanstreamwiseVelocity*perturbation_2.GaussNormal();
 				//Info<<"The streamwiseVelocity is "<<streamwiseVelocity<<endl;
 				nearWallRegion.calculateTransverseVelocity();
-				scalar transverseVelocity = nearWallRegion.transverseVelocity_;
+				scalar meantransverseVelocity = nearWallRegion.transverseVelocity_;
+				meantransverseVelocity = meantransverseVelocity + 0.1*meantransverseVelocity*Foam::sin(mesh.time().value());
+				Random perturbation_3(rand());
+				scalar transverseVelocity = meantransverseVelocity + 0.1*meantransverseVelocity*perturbation_3.GaussNormal();
+				Random perturbation_4(rand());
+				scalar background = 0.1*perturbation_4.GaussNormal();
 				//Info<<"The transverseVelocity is "<<transverseVelocity<<endl;
 				//Set the velocity
 				U_patch[faceI] = ( (y<pyrolysisUpperPosition)&&(y>pyrolysisLowerPosition)\
