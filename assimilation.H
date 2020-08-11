@@ -116,7 +116,7 @@
 				scalar interfaceFuel = meanInterFuel + 0.1*meanInterFuel*perturbation.GaussNormal();
 				if(interfaceFuel<0){interfaceFuel = 0;}
 				//Set fuel
-				fuel_patch[faceI] = scalar( (y<pyrolysisUpperPosition)&&(y>pyrolysisLowerPosition) ? interfaceFuel : 0 );
+				fuel_patch[faceI] = scalar( (y<pyrolysisUpperPosition)&&(y>pyrolysisLowerPosition) ? meanInterFuel : 0 );
 			}
 		}
 		Info<<"The fuel changes"<<endl;
@@ -160,7 +160,7 @@
 				//Info<<"The transverseVelocity is "<<transverseVelocity<<endl;
 				//Set the velocity
 				U_patch[faceI] = ( (y<pyrolysisUpperPosition)&&(y>pyrolysisLowerPosition)\
-				 ? vector(transverseVelocity, streamwiseVelocity, 0) : vector(0, 0, 0));
+				 ? vector(meanstreamwiseVelocity, meantransverseVelocity, 0) : vector(0, 0, 0));
 			}
 
 		}
@@ -225,6 +225,8 @@
 		}
 		Info<<"The oxygen changes"<<endl;
 
+		if ((mesh.time().value()>200) && (mesh.time().value())<445){condensedRegion::C  = 30;}
+		if (mesh.time().value()>445){condensedRegion::C  = VGREAT;}
 
 		Info<<"The index is "<<	assimilationTimeIndex <<endl;
 		Info<<"The time is "<<	data[assimilationTimeIndex][0] <<endl;
